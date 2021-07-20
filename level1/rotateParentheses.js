@@ -1,11 +1,14 @@
-const s = "[]{}()";
-console.log(solution(s));
-const parentheses = {
-  "{": "}",
-  "(": ")",
-  "[": "]",
-};
+"use strict";
 
+const parentheses = {
+	"}": "{",
+	")": "(",
+	"]": "[",
+};
+const s = "[]{}()";
+
+
+console.log(solution(s));
 function solution(s) {
   const splitArr = s.split("");
   const size = s.length;
@@ -22,16 +25,10 @@ function solution(s) {
 function isValid(arr) {
   const stack = [];
   for (let i = 0; i < arr.length; ++i) {
-    if (arr[i] == "(" || arr[i] == "[" || arr[i] == "{") {
+    if (Object.values(parentheses).includes(arr[i])) {
       stack.push(arr[i]);
-    } else if (arr[i] == ")") {
-      if (stack[stack.length - 1] == "(") stack.pop();
-      else return false;
-    } else if (arr[i] == "}") {
-      if (stack[stack.length - 1] == "{") stack.pop();
-      else return false;
-    } else if (arr[i] == "]") {
-      if (stack[stack.length - 1] == "[") stack.pop();
+    } else if (Object.keys(parentheses).includes(arr[i])) {
+      if (stack[stack.length - 1] == parentheses[arr[i]]) stack.pop();
       else return false;
     }
   }
